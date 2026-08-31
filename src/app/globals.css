@@ -1,26 +1,145 @@
 @import "tailwindcss";
 
+/* ── Design tokens ─────────────────────────────────────────────────────────
+   Palette taken from the reference: dark navy/charcoal bands, gold accent,
+   warm off-white sections in between.                                      */
+@theme {
+  --color-ink-950: #080B0F;
+  --color-ink-900: #0D1117;
+  --color-ink-800: #161B22;
+  --color-ink-700: #21262E;
+  --color-ink-600: #30363F;
+
+  --color-gold-300: #F0CE7C;
+  --color-gold-400: #E3B44A;
+  --color-gold-500: #D4A331;
+  --color-gold-600: #B4861F;
+  --color-gold-700: #8C6714;
+
+  --color-cream-50: #FBFAF7;
+  --color-cream-100: #F5F2EB;
+  --color-cream-200: #EAE5DA;
+
+  --color-slate-body: #545C66;
+  --color-slate-heading: #10151B;
+
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 10px;
+  --radius-btn: 3px;
+
+  --shadow-card: 0 1px 2px rgb(16 21 27 / 0.04), 0 8px 24px -8px rgb(16 21 27 / 0.12);
+  --shadow-card-hover: 0 2px 4px rgb(16 21 27 / 0.06), 0 18px 40px -12px rgb(16 21 27 / 0.22);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --page-max: 1240px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream-50);
+  color: var(--color-slate-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Shared primitives ─────────────────────────────────────────────────── */
+@utility container-page {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@layer components {
+  .heading-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: var(--color-slate-heading);
+    text-transform: uppercase;
+  }
+
+  /* Thin accent underline under uppercase section headers, as in reference */
+  .heading-rule::after {
+    content: "";
+    display: block;
+    width: 42px;
+    height: 3px;
+    margin-top: 0.625rem;
+    background: var(--color-gold-500);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-btn);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.5rem;
+    transition: background-color 0.22s var(--ease-out-soft),
+                color 0.22s var(--ease-out-soft),
+                border-color 0.22s var(--ease-out-soft),
+                transform 0.22s var(--ease-out-soft);
+  }
+  .btn:active { transform: translateY(1px); }
+
+  .btn-gold {
+    background: var(--color-gold-500);
+    color: var(--color-ink-900);
+  }
+  .btn-gold:hover { background: var(--color-gold-400); }
+
+  .btn-outline-light {
+    border: 1px solid rgb(255 255 255 / 0.7);
+    color: #fff;
+  }
+  .btn-outline-light:hover { background: #fff; color: var(--color-ink-900); }
+
+  .btn-dark {
+    background: var(--color-ink-900);
+    color: #fff;
+  }
+  .btn-dark:hover { background: var(--color-ink-700); }
+
+  .card-surface {
+    background: #fff;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s var(--ease-out-soft), transform 0.3s var(--ease-out-soft);
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+}
+
+/* Hide scrollbar on the horizontal carousels while keeping them scrollable */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Logical-property helpers so the Arabic RTL layout mirrors correctly */
+[dir="rtl"] .flip-rtl { transform: scaleX(-1); }

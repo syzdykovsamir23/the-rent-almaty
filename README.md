@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# THE RENT — car rental, Almaty
 
-## Getting Started
+Marketing site + car catalog + owner's admin panel.
+Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Supabase.
 
-First, run the development server:
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Opens on http://localhost:3000 (the preview config in `../.claude/launch.json`
+uses port 3055).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The site runs fine **without** Supabase: the catalog shows its empty state and
+the admin panel explains what is missing. Nothing else degrades.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Supabase
 
-## Learn More
+`.env.local` already holds the project URL and the anon key, and the schema is
+live: `cars`, `admins`, the `car-photos` bucket and every RLS policy are in
+place and were verified against the running project (anonymous writes are
+rejected on all of them).
 
-To learn more about Next.js, take a look at the following resources:
+Two things still need the dashboard, because they cannot be done with the anon
+key:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Turn off public signup** — `Authentication → Sign In / Providers → Email`,
+   disable *Allow new users to sign up*. It is currently **on**, so anyone can
+   register an account on the project. They still cannot touch the catalog (the
+   `is_admin()` check blocks every write), but there is no reason to leave it open.
+2. **Run `supabase/hardening.sql`** in the SQL Editor. It caps the photo bucket
+   at 8 MB and raster formats only, and prints which accounts hold admin rights.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The owner account itself is created in `Authentication → Users` and then added
+to `public.admins` — step 4 of `supabase/README.md`. Signing in is deliberately
+not enough on its own.
 
-## Deploy on Vercel
+## What lives where
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Path | What it is |
+| --- | --- |
+| `src/lib/site.ts` | Brand name, phone, email, WhatsApp/WeChat/map links. **Change contacts here.** |
+| `src/i18n/dictionaries/en.ts` | All page copy. Other locales override it key by key. |
+| `src/i18n/dictionaries/{ru,kk,zh,ar,ko,th}.ts` | Full translations for the other six languages. |
+| `src/lib/cars.ts` | The only read path for the catalog. |
+| `src/app/admin/actions.ts` | Create / update / delete server actions. |
+| `supabase/schema.sql` | Tables, RLS policies, storage bucket. |
+| `public/images/` | Placeholder photography (see `/credits`). |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Language system
+
+Seven languages (Russian, Kazakh, English, Chinese, Arabic, Korean, Thai). A
+full-screen picker appears on the first visit; after that the navbar switcher
+handles it and the choice is remembered in `localStorage`. Arabic flips the
+whole layout to RTL — the components use logical properties (`ms-`, `pe-`,
+`start-`, `end-`) so nothing needs a mirrored stylesheet.
+
+All seven dictionaries are fully translated (142 keys each), including body
+types, place names and the photo-credits page. `src/i18n/dictionaries/en.ts` is
+the reference shape; every other locale overrides it key by key, so an unfinished
+key falls back to English instead of blanking the page.
+
+The locale lives in `localStorage` rather than the URL. Moving to `/[locale]`
+routes later is a mechanical change — the dictionaries are already split per
+locale — and is worth doing when SEO per language starts to matter.
+
+## Deploy
+
+Vercel: import the repo, add the two `NEXT_PUBLIC_SUPABASE_*` variables, deploy.
+`next.config.ts` derives the allowed image host from the Supabase URL, so car
+photos uploaded through the admin panel are served through `next/image`
+automatically.
+
+## Security
+
+- Every write path is gated by RLS plus an `admins` allowlist, not by the UI.
+  The anon key in the client bundle is public by design and cannot write.
+- `next.config.ts` sends CSP, HSTS, `X-Content-Type-Options`, `Referrer-Policy`,
+  `X-Frame-Options` and `Permissions-Policy`; `/admin/*` also sends
+  `X-Robots-Tag: noindex`.
+- `?next=` on the login page is restricted to same-site `/admin` paths, so it
+  cannot be used as an open redirect.
+- Photo uploads accept JPEG/PNG/WebP/AVIF up to 8 MB, and the stored extension
+  comes from the sniffed MIME type rather than the file name.
+
+## Still placeholder
+
+- Testimonials (three sample reviews) — the Google reviews link is real.
+- Photography — free-licence stock, credited on `/credits`. Replace it with the
+  owner's own photos and delete the matching entries from that page.
