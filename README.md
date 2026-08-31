@@ -68,7 +68,18 @@ locale — and is worth doing when SEO per language starts to matter.
 
 ## Deploy
 
-Vercel: import the repo, add the two `NEXT_PUBLIC_SUPABASE_*` variables, deploy.
+Live on Vercel, linked to `syzdykovsamir23/the-rent-almaty` — every push to
+`main` redeploys.
+
+- Project: https://vercel.com/tyler-s-projects5/the-rent-almaty
+- Production: https://the-rent-almaty-tyler-s-projects5.vercel.app
+
+The two `NEXT_PUBLIC_SUPABASE_*` values live in `.env.production` in the repo.
+They are public by design — `NEXT_PUBLIC_*` is inlined into the client bundle,
+so every visitor receives them regardless; row-level security is what protects
+the data. Setting the same names in the Vercel dashboard overrides the file,
+which is the route to take whenever the key is rotated.
+
 `next.config.ts` derives the allowed image host from the Supabase URL, so car
 photos uploaded through the admin panel are served through `next/image`
 automatically.
