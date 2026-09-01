@@ -21,7 +21,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: `${site.name} — Car rental in Almaty`,
   description:
-    "Car rental in Almaty, Kazakhstan. Free delivery in the city and at the airport, full insurance included, transparent pricing.",
+    "Car rental in Almaty, Kazakhstan. Delivery across the city and to the airport, 24/7 support, and transparent pricing with no hidden fees.",
 };
 
 /**
