@@ -7,7 +7,6 @@ const ko: DeepPartial<Dictionary> = {
     conditions: "대여 조건",
     delivery: "차량 배송",
     about: "회사 소개",
-    faq: "자주 묻는 질문",
     contact: "문의하기",
     language: "언어",
   },
@@ -27,8 +26,6 @@ const ko: DeepPartial<Dictionary> = {
     ctaPrimary: "차량 고르기",
     ctaSecondary: "문의하기",
     features: [
-      { title: "무료 배송", text: "알마티 시내" },
-      { title: "종합 보험", text: "요금에 포함" },
       { title: "24시간 지원", text: "언제든 연락 주세요" },
       { title: "추가 비용 없음", text: "투명한 요금제" },
     ],
@@ -165,35 +162,10 @@ const ko: DeepPartial<Dictionary> = {
     support: "24시간 지원",
     info: {
       conditions: "대여 조건",
-      faq: "자주 묻는 질문",
       delivery: "차량 배송",
       about: "회사 소개",
-      credits: "사진 출처",
     },
     rights: "모든 권리 보유.",
-  },
-
-  credits: {
-    title: "사진 출처",
-    intro:
-      "자유 이용 라이선스로 공개된 사진을 사용하고 있으며, 라이선스가 요구하는 저작자 표시를 함께 싣습니다. 자사 촬영본이 준비되는 대로 교체될 예정입니다.",
-    by: "촬영:",
-    source: "원본",
-    back: "사이트로 돌아가기",
-    slots: {
-      hero: "메인 배경 — 알마티주 아시 고원",
-      car: "메인 화면 차량",
-      lake: "빅 알마티 호수",
-      charyn: "차른 캐니언",
-      kolsai: "콜사이 호수",
-      altyn: "알틴 에멜",
-      airport: "공항 배송 카드",
-    },
-    notes: {
-      crop32: "3:2 비율로 자르고 WebP로 변환했습니다.",
-      crop169: "16:9 비율로 자르고 WebP로 변환했습니다.",
-      car: "배경을 제거하고 차체를 그래파이트 색으로 바꾼 뒤, 번호판을 빈 판으로 교체했습니다.",
-    },
   },
 
   langModal: {

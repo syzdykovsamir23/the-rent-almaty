@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useActionState, useState } from "react";
 import { createCar, updateCar, type ActionState } from "@/app/admin/actions";
 import { createClient } from "@/lib/supabase/client";
 import { CAR_TYPES, TRANSMISSIONS } from "@/lib/site";
-import type { Car } from "@/lib/types";
+import type { Car, ImageTransform } from "@/lib/types";
+import { PhotoFramer } from "./PhotoFramer";
 
 const BUCKET = "car-photos";
 
@@ -25,6 +25,9 @@ export function CarForm({ car }: { car?: Car }) {
   const [state, formAction, pending] = useActionState<ActionState, FormData>(action, {});
 
   const [images, setImages] = useState<string[]>(car?.images ?? []);
+  const [imageSettings, setImageSettings] = useState<Record<string, ImageTransform>>(
+    car?.image_settings ?? {},
+  );
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
@@ -157,27 +160,17 @@ export function CarForm({ car }: { car?: Car }) {
           />
         </Field>
 
-        <div className="mt-4">
-          <p className="text-xs font-semibold text-[#6B7684]">Photos</p>
+        <div className="mt-6 border-t border-[#EEF0F2] pt-5">
+          <PhotoFramer
+            images={images}
+            settings={imageSettings}
+            onChangeImages={setImages}
+            onChangeSettings={setImageSettings}
+          />
 
-          <div className="mt-2 flex flex-wrap gap-3">
-            {images.map((url) => (
-              <div key={url} className="relative size-24 overflow-hidden rounded border border-[#E1E4E8]">
-                <Image src={url} alt="" fill sizes="96px" className="object-cover" />
-                <button
-                  type="button"
-                  onClick={() => setImages((prev) => prev.filter((u) => u !== url))}
-                  aria-label="Remove photo"
-                  className="absolute end-1 top-1 flex size-5 cursor-pointer items-center justify-center rounded-full bg-black/65 text-xs leading-none text-white"
-                >
-                  ×
-                </button>
-                <input type="hidden" name="images" value={url} />
-              </div>
-            ))}
-
-            <label className="flex size-24 cursor-pointer flex-col items-center justify-center rounded border border-dashed border-[#C9CED6] text-center text-xs text-[#6B7684] transition-colors hover:border-[#1F2933] hover:text-[#1F2933]">
-              {uploading ? "Uploading…" : "+ Add"}
+          <div className="mt-4 flex items-center gap-3">
+            <label className="cursor-pointer rounded-md border border-dashed border-[#C9CED6] px-4 py-2 text-xs font-medium text-[#6B7684] transition-colors hover:border-[#1F2933] hover:text-[#1F2933]">
+              {uploading ? "Uploading…" : "+ Add photos"}
               <input
                 type="file"
                 accept="image/jpeg,image/png,image/webp,image/avif"
@@ -187,15 +180,12 @@ export function CarForm({ car }: { car?: Car }) {
                 className="hidden"
               />
             </label>
+            {uploadError ? (
+              <p className="text-xs text-[#B4232C]">{uploadError}</p>
+            ) : (
+              <p className="text-xs text-[#6B7684]">JPEG, PNG, WebP or AVIF, up to 8 MB each.</p>
+            )}
           </div>
-
-          {uploadError ? (
-            <p className="mt-2 text-xs text-[#B4232C]">{uploadError}</p>
-          ) : (
-            <p className="mt-2 text-xs text-[#6B7684]">
-              The first photo is the one shown on the car card.
-            </p>
-          )}
         </div>
 
         <label className="mt-5 flex cursor-pointer items-center gap-2.5 text-sm">

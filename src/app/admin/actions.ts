@@ -20,6 +20,7 @@ function parseCar(formData: FormData) {
     .map((v) => String(v).trim())
     .filter(Boolean);
   const available = formData.get("available") === "on";
+  const imageSettings = parseImageSettings(formData.get("image_settings"), images);
 
   if (!name) return { error: "Name is required." as const };
   if (!(CAR_TYPES as readonly string[]).includes(type)) return { error: "Pick a body type." as const };
@@ -41,9 +42,61 @@ function parseCar(formData: FormData) {
       price_per_day: Math.round(price),
       description: description || null,
       images,
+      image_settings: imageSettings,
       available,
     },
   };
+}
+
+/** Per-photo framing, clamped and limited to photos still attached to the car. */
+function parseImageSettings(raw: FormDataEntryValue | null, images: string[]) {
+  if (typeof raw !== "string" || !raw) return {};
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return {};
+  }
+  if (!parsed || typeof parsed !== "object") return {};
+
+  const out: Record<string, { x: number; y: number; zoom: number }> = {};
+  for (const [url, value] of Object.entries(parsed as Record<string, unknown>)) {
+    if (!images.includes(url) || !value || typeof value !== "object") continue;
+    const v = value as Record<string, unknown>;
+    out[url] = {
+      x: clamp(v.x, 0, 100, 50),
+      y: clamp(v.y, 0, 100, 50),
+      zoom: clamp(v.zoom, 1, 3, 1),
+    };
+  }
+  return out;
+}
+
+function clamp(value: unknown, min: number, max: number, fallback: number): number {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return fallback;
+  return Math.round(Math.min(max, Math.max(min, n)) * 100) / 100;
+}
+
+const MIGRATION_HINT =
+  "Saved, but the photo framing was not: run supabase/migration-image-settings.sql in the Supabase SQL Editor to add the image_settings column.";
+
+/**
+ * The image_settings column arrived after the first deploy. If the migration
+ * has not been run yet, save everything else rather than failing the whole form.
+ */
+async function writeWithFramingFallback(
+  run: (values: Record<string, unknown>) => PromiseLike<{ error: { message: string } | null }>,
+  values: Record<string, unknown>,
+): Promise<ActionState | null> {
+  const { error } = await run(values);
+  if (!error) return null;
+  if (!error.message.includes("image_settings")) return { error: error.message };
+
+  const rest = { ...values };
+  delete rest.image_settings;
+  const retry = await run(rest);
+  return retry.error ? { error: retry.error.message } : { error: MIGRATION_HINT };
 }
 
 export async function createCar(_prev: ActionState, formData: FormData): Promise<ActionState> {
@@ -53,8 +106,11 @@ export async function createCar(_prev: ActionState, formData: FormData): Promise
   const parsed = parseCar(formData);
   if ("error" in parsed) return { error: parsed.error };
 
-  const { error } = await supabase.from("cars").insert(parsed.values);
-  if (error) return { error: error.message };
+  const failure = await writeWithFramingFallback(
+    (values) => supabase.from("cars").insert(values),
+    parsed.values,
+  );
+  if (failure) return failure;
 
   revalidatePath("/admin");
   revalidatePath("/cars");
@@ -72,8 +128,11 @@ export async function updateCar(_prev: ActionState, formData: FormData): Promise
   const parsed = parseCar(formData);
   if ("error" in parsed) return { error: parsed.error };
 
-  const { error } = await supabase.from("cars").update(parsed.values).eq("id", id);
-  if (error) return { error: error.message };
+  const failure = await writeWithFramingFallback(
+    (values) => supabase.from("cars").update(values).eq("id", id),
+    parsed.values,
+  );
+  if (failure) return failure;
 
   revalidatePath("/admin");
   revalidatePath("/cars");

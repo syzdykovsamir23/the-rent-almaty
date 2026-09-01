@@ -4,12 +4,14 @@ import Image from "next/image";
 import { Calendar, CarFront, Users } from "lucide-react";
 import { useDict } from "@/i18n/LanguageProvider";
 import { formatPrice } from "@/lib/format";
-import type { Car } from "@/lib/types";
+import { transformFor, type Car } from "@/lib/types";
 import { TransmissionIcon } from "./icons";
 
 export function CarCard({ car }: { car: Car }) {
   const dict = useDict();
   const photo = car.images?.[0];
+  // Framing chosen by the owner in the admin panel.
+  const frame = transformFor(car, photo);
 
   return (
     <article className="card-surface group flex h-full flex-col overflow-hidden hover:shadow-[var(--shadow-card-hover)]">
@@ -24,13 +26,19 @@ export function CarCard({ car }: { car: Car }) {
 
       <div className="relative mt-3 aspect-[16/10] w-full overflow-hidden bg-cream-100">
         {photo ? (
-          <Image
-            src={photo}
-            alt={car.name}
-            fill
-            sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 80vw"
-            className="object-cover transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.04]"
-          />
+          <div className="absolute inset-0 transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.04]">
+            <Image
+              src={photo}
+              alt={car.name}
+              fill
+              sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 80vw"
+              style={{
+                objectPosition: `${frame.x}% ${frame.y}%`,
+                transform: frame.zoom === 1 ? undefined : `scale(${frame.zoom})`,
+              }}
+              className="object-cover"
+            />
+          </div>
         ) : (
           <div className="flex h-full items-center justify-center">
             <CarFront className="size-10 text-cream-200" strokeWidth={1.2} />

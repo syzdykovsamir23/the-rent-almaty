@@ -9,7 +9,7 @@ export function Testimonials() {
   const dict = useDict();
 
   return (
-    <section id="faq" className="bg-cream-50 pb-16 sm:pb-20">
+    <section id="reviews" className="bg-cream-50 pb-16 sm:pb-20">
       <div className="container-page">
         <div className="flex items-end justify-between gap-6">
           <SectionHeading>{dict.reviews.heading}</SectionHeading>

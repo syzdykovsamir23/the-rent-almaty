@@ -9,7 +9,6 @@ const en = {
     conditions: "Rental Conditions",
     delivery: "Delivery",
     about: "About Us",
-    faq: "FAQ",
     contact: "Contact",
     language: "Language",
   },
@@ -29,8 +28,6 @@ const en = {
     ctaPrimary: "Choose a Car",
     ctaSecondary: "Contact Us",
     features: [
-      { title: "Free delivery", text: "in Almaty" },
-      { title: "Full insurance", text: "included" },
       { title: "24/7 support", text: "We're always here" },
       { title: "No hidden fees", text: "Transparent pricing" },
     ],
@@ -153,35 +150,10 @@ const en = {
     support: "24/7 support",
     info: {
       conditions: "Rental conditions",
-      faq: "FAQ",
       delivery: "Delivery",
       about: "About us",
-      credits: "Photo credits",
     },
     rights: "All rights reserved.",
-  },
-
-  credits: {
-    title: "Photo credits",
-    intro:
-      "Stock photography under free licences, kept here with the attribution those licences require. It is replaced as the company's own photos arrive.",
-    by: "by",
-    source: "Source",
-    back: "Back to the site",
-    slots: {
-      hero: "Hero background — Assy Plateau, Almaty region",
-      car: "Hero car",
-      lake: "Big Almaty Lake",
-      charyn: "Charyn Canyon",
-      kolsai: "Kolsai Lakes",
-      altyn: "Altyn Emel",
-      airport: "Airport delivery card",
-    },
-    notes: {
-      crop32: "Cropped to 3:2 and converted to WebP.",
-      crop169: "Cropped to 16:9 and converted to WebP.",
-      car: "Background removed, body desaturated to graphite, and the registration plate replaced with a blank one.",
-    },
   },
 
   langModal: {

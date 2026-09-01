@@ -47,7 +47,8 @@ not enough on its own.
 | `src/lib/cars.ts` | The only read path for the catalog. |
 | `src/app/admin/actions.ts` | Create / update / delete server actions. |
 | `supabase/schema.sql` | Tables, RLS policies, storage bucket. |
-| `public/images/` | Placeholder photography (see `/credits`). |
+| `supabase/migration-image-settings.sql` | Adds the per-photo framing column. **Run this once.** |
+| `public/images/` | Site photography — see `PHOTO-CREDITS.md`. |
 
 ## Language system
 
@@ -96,8 +97,19 @@ automatically.
 - Photo uploads accept JPEG/PNG/WebP/AVIF up to 8 MB, and the stored extension
   comes from the sniffed MIME type rather than the file name.
 
+## Photo framing
+
+Each car photo carries its own framing — position and zoom — set by dragging it
+inside a preview that uses the exact CSS the public card uses. It is stored in
+`cars.image_settings`, a JSON map from photo URL to `{x, y, zoom}`.
+
+That column is added by `supabase/migration-image-settings.sql`. Until it is run,
+the admin panel still saves everything else and says so, and the public cards
+fall back to centred, un-zoomed photos.
+
 ## Still placeholder
 
 - Testimonials (three sample reviews) — the Google reviews link is real.
-- Photography — free-licence stock, credited on `/credits`. Replace it with the
-  owner's own photos and delete the matching entries from that page.
+- The five landscape photos in `public/images/` are free-licence stock whose
+  licence requires attribution. `PHOTO-CREDITS.md` records it; see the open item
+  at the bottom of that file.

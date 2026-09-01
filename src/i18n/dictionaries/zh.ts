@@ -7,7 +7,6 @@ const zh: DeepPartial<Dictionary> = {
     conditions: "租车条款",
     delivery: "送车服务",
     about: "关于我们",
-    faq: "常见问题",
     contact: "联系我们",
     language: "语言",
   },
@@ -27,8 +26,6 @@ const zh: DeepPartial<Dictionary> = {
     ctaPrimary: "选择车型",
     ctaSecondary: "联系我们",
     features: [
-      { title: "免费送车", text: "阿拉木图市内" },
-      { title: "全额保险", text: "已含在租金内" },
       { title: "全天候客服", text: "随时为您待命" },
       { title: "无隐藏费用", text: "价格公开透明" },
     ],
@@ -150,35 +147,10 @@ const zh: DeepPartial<Dictionary> = {
     support: "全天候客服",
     info: {
       conditions: "租车条款",
-      faq: "常见问题",
       delivery: "送车服务",
       about: "关于我们",
-      credits: "图片来源",
     },
     rights: "版权所有。",
-  },
-
-  credits: {
-    title: "图片来源",
-    intro:
-      "本站暂用自由许可的图库照片，并按许可要求标注作者。待公司自有照片就绪后即会替换。",
-    by: "作者：",
-    source: "原始出处",
-    back: "返回网站",
-    slots: {
-      hero: "首屏背景 — 阿拉木图州阿瑟高原",
-      car: "首屏车辆",
-      lake: "大阿拉木图湖",
-      charyn: "恰伦大峡谷",
-      kolsai: "科尔赛湖群",
-      altyn: "阿尔金-埃梅尔",
-      airport: "机场送车卡片",
-    },
-    notes: {
-      crop32: "已裁剪为 3:2 并转换为 WebP 格式。",
-      crop169: "已裁剪为 16:9 并转换为 WebP 格式。",
-      car: "已去除背景，车身处理为石墨黑，车牌替换为空白牌照。",
-    },
   },
 
   langModal: {

@@ -16,7 +16,6 @@ export function Navbar() {
     { href: "/#conditions", label: dict.nav.conditions },
     { href: "/#delivery", label: dict.nav.delivery },
     { href: "/#about", label: dict.nav.about },
-    { href: "/#faq", label: dict.nav.faq },
     { href: "/#contact", label: dict.nav.contact },
   ];
 
