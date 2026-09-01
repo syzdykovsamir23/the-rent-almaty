@@ -169,6 +169,7 @@ const ru: DeepPartial<Dictionary> = {
       delivery: "Доставка",
       about: "О нас",
     },
+    photoCredit: "Пейзажные фото",
     rights: "Все права защищены.",
   },
 

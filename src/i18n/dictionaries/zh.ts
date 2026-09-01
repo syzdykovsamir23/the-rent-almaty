@@ -150,6 +150,7 @@ const zh: DeepPartial<Dictionary> = {
       delivery: "送车服务",
       about: "关于我们",
     },
+    photoCredit: "风景照片",
     rights: "版权所有。",
   },
 

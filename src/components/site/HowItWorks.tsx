@@ -20,7 +20,7 @@ export function HowItWorks() {
             {dict.how.steps.map((step, i) => {
               const Icon = STEP_ICONS[i] ?? CarFront;
               return (
-                <li key={step.title} className="flex items-start gap-4 sm:contents">
+                <li key={i} className="flex items-start gap-4 sm:contents">
                   <div className="flex shrink-0 flex-col items-center sm:flex-1">
                     <Icon className="size-8 text-slate-heading" strokeWidth={1.15} />
                     <p className="num mt-3 text-[0.72rem] font-extrabold text-slate-heading">

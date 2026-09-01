@@ -1,9 +1,11 @@
 # Photo credits
 
 The hero image is the client's own. Everything below is still in `public/images/`
-and is used under a free licence that **requires attribution**. The public
-`/credits` page was removed at the client's request, so this file is currently
-the only place the credit is recorded — see the note at the bottom.
+and is used under a free licence that **requires attribution**.
+
+The attribution visitors see is a single line at the bottom of the site footer,
+rendered from `src/lib/photoCredits.ts`. This file is the long form: it records
+the exact title, author, licence and source of each photo.
 
 ## Big Almaty Lake card
 
@@ -42,12 +44,9 @@ the only place the credit is recorded — see the note at the bottom.
 
 ---
 
-## Open item
+## Replacing a photo
 
-CC BY-SA requires the author and licence to be credited wherever the work is
-used. A file inside a private repository is not a credit to the people viewing
-the site. Two ways to close this properly:
-
-1. Replace these five photos with the company's own, and delete this file.
-2. Put the attribution back somewhere on the site — a single small line in the
-   footer is enough, it does not need its own page.
+When one of these is swapped for a photo the company owns, delete its entry from
+`src/lib/photoCredits.ts` — that removes the name from the footer line — and
+delete the matching section above. When all five are replaced, delete this file
+and the `photoCredit` key from the seven dictionaries.

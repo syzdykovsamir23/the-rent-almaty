@@ -4,6 +4,12 @@ import Link from "next/link";
 import { Headphones, Mail, MapPin, Phone } from "lucide-react";
 import { useDict } from "@/i18n/LanguageProvider";
 import { CAR_TYPES, site } from "@/lib/site";
+import {
+  LICENSE_LABEL,
+  LICENSE_URL,
+  PHOTO_CREDITS,
+  SOURCE_LABEL,
+} from "@/lib/photoCredits";
 import { WeChatButton } from "./WeChatButton";
 import { WhatsAppIcon } from "./icons";
 
@@ -105,9 +111,40 @@ export function Footer() {
             </FooterColumn>
           </div>
 
-          <p className="mt-12 border-t border-white/8 pt-6 text-[0.82rem] text-white/40">
-            © {new Date().getFullYear()} {site.name}. {dict.footer.rights}
-          </p>
+          <div className="mt-12 border-t border-white/8 pt-6">
+            <p className="text-[0.82rem] text-white/40">
+              © {new Date().getFullYear()} {site.name}. {dict.footer.rights}
+            </p>
+
+            {/* CC BY-SA requires the author and licence to be named wherever the
+                photo is used. Each name links to its source file page, which
+                states that photo's exact licence. */}
+            <p className="mt-2 text-[0.68rem] leading-relaxed text-white/25">
+              {dict.footer.photoCredit}:{" "}
+              {PHOTO_CREDITS.map((c, i) => (
+                <span key={c.source}>
+                  {i > 0 ? ", " : null}
+                  <a
+                    href={c.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-colors hover:text-white/60"
+                  >
+                    {c.author}
+                  </a>
+                </span>
+              ))}{" "}
+              &middot; {SOURCE_LABEL},{" "}
+              <a
+                href={LICENSE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-white/60"
+              >
+                {LICENSE_LABEL}
+              </a>
+            </p>
+          </div>
         </div>
 
         {/* No sandbox attribute: Google's embed redirects to /maps/embed and

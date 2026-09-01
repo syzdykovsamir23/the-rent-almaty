@@ -166,6 +166,7 @@ const ar: DeepPartial<Dictionary> = {
       delivery: "التوصيل",
       about: "من نحن",
     },
+    photoCredit: "صور المناظر الطبيعية",
     rights: "جميع الحقوق محفوظة.",
   },
 

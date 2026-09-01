@@ -94,7 +94,7 @@ const kk: DeepPartial<Dictionary> = {
       { title: "Көлікті", text: "таңдайсыз" },
       { title: "Өтінім", text: "жібересіз" },
       { title: "Брондауды", text: "растаймыз" },
-      { title: "Көлікті", text: "аласыз" },
+      { title: "Кілтті", text: "аласыз" },
       { title: "Сапарға", text: "шығасыз" },
     ],
     airportTitle: "Алматыға ұшып келесіз бе?",
@@ -169,6 +169,7 @@ const kk: DeepPartial<Dictionary> = {
       delivery: "Жеткізу",
       about: "Біз туралы",
     },
+    photoCredit: "Пейзаж суреттері",
     rights: "Барлық құқықтар қорғалған.",
   },
 

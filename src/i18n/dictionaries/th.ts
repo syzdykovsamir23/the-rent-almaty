@@ -165,6 +165,7 @@ const th: DeepPartial<Dictionary> = {
       delivery: "บริการส่งรถ",
       about: "เกี่ยวกับเรา",
     },
+    photoCredit: "ภาพทิวทัศน์",
     rights: "สงวนลิขสิทธิ์",
   },
 

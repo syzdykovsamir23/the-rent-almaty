@@ -153,6 +153,7 @@ const en = {
       delivery: "Delivery",
       about: "About us",
     },
+    photoCredit: "Landscape photos",
     rights: "All rights reserved.",
   },
 

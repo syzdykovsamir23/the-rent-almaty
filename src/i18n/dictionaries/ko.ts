@@ -165,6 +165,7 @@ const ko: DeepPartial<Dictionary> = {
       delivery: "차량 배송",
       about: "회사 소개",
     },
+    photoCredit: "풍경 사진",
     rights: "모든 권리 보유.",
   },
 
