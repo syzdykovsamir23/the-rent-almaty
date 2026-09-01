@@ -56,3 +56,24 @@ export function InstagramIcon({ className = "" }: { className?: string }) {
     </svg>
   );
 }
+
+/** Four wheels on two axles — reads as "drivetrain" next to the gearbox glyph. */
+export function DrivetrainIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <circle cx="6" cy="6" r="2.2" />
+      <circle cx="18" cy="6" r="2.2" />
+      <circle cx="6" cy="18" r="2.2" />
+      <circle cx="18" cy="18" r="2.2" />
+      <path d="M6 8.2v7.6M18 8.2v7.6M8.2 12h7.6" />
+    </svg>
+  );
+}

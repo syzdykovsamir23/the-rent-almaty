@@ -1,4 +1,4 @@
-import type { CarType, Transmission } from "@/lib/site";
+import type { CarType, Drivetrain, Transmission } from "@/lib/site";
 
 /** How one photo is framed on the card: object-position plus a zoom factor. */
 export type ImageTransform = { x: number; y: number; zoom: number };
@@ -12,6 +12,9 @@ export type Car = {
   year: number;
   transmission: Transmission;
   seats: number;
+  /** Boot capacity in litres. Null only on cars added before the spec fields. */
+  trunk_liters: number | null;
+  drivetrain: Drivetrain | null;
   price_per_day: number;
   description: string | null;
   images: string[];

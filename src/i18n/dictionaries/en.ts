@@ -21,6 +21,13 @@ const en = {
     Premium: "Premium",
   },
 
+  drivetrains: {
+    FWD: "FWD",
+    RWD: "RWD",
+    AWD: "AWD",
+    "4WD": "4WD",
+  },
+
   hero: {
     titleLine1: "Explore Almaty.",
     titleLine2: "Your car is ready.",
@@ -128,6 +135,9 @@ const en = {
   },
 
   card: {
+    trunkUnit: "L",
+    trunk: "Boot",
+    drivetrain: "Drive",
     seats: "Seats",
     perDay: "/ day",
     book: "Book now",

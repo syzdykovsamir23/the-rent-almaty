@@ -47,7 +47,8 @@ not enough on its own.
 | `src/lib/cars.ts` | The only read path for the catalog. |
 | `src/app/admin/actions.ts` | Create / update / delete server actions. |
 | `supabase/schema.sql` | Tables, RLS policies, storage bucket. |
-| `supabase/migration-image-settings.sql` | Adds the per-photo framing column. **Run this once.** |
+| `supabase/migration-image-settings.sql` | Adds the per-photo framing column. **Run once.** |
+| `supabase/migration-car-specs.sql` | Adds boot capacity and drivetrain. **Run once.** |
 | `public/images/` | Site photography — see `PHOTO-CREDITS.md`. |
 
 ## Language system
@@ -96,6 +97,15 @@ automatically.
   cannot be used as an open redirect.
 - Photo uploads accept JPEG/PNG/WebP/AVIF up to 8 MB, and the stored extension
   comes from the sniffed MIME type rather than the file name.
+
+## Car specs
+
+A car record carries name, body type, year, transmission, seats, drivetrain,
+boot capacity in litres, price per day, photos, description and an availability
+flag. Drivetrain and boot capacity are required by the form but nullable in the
+database, so the cars added before `supabase/migration-car-specs.sql` are not
+invalidated — their cards simply show three specs instead of five until someone
+opens them in the admin panel and fills the two fields in.
 
 ## Photo framing
 

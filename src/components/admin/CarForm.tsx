@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useActionState, useState } from "react";
 import { createCar, updateCar, type ActionState } from "@/app/admin/actions";
 import { createClient } from "@/lib/supabase/client";
-import { CAR_TYPES, TRANSMISSIONS } from "@/lib/site";
+import { CAR_TYPES, DRIVETRAINS, TRANSMISSIONS } from "@/lib/site";
 import type { Car, ImageTransform } from "@/lib/types";
 import { PhotoFramer } from "./PhotoFramer";
 
@@ -111,6 +111,35 @@ export function CarForm({ car }: { car?: Car }) {
                 </option>
               ))}
             </select>
+          </Field>
+        </div>
+
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <Field label="Drivetrain">
+            <select name="drivetrain" defaultValue={car?.drivetrain ?? ""} required className={inputCls}>
+              <option value="" disabled>
+                Select…
+              </option>
+              {DRIVETRAINS.map((d) => (
+                <option key={d} value={d}>
+                  {DRIVETRAIN_LABELS[d]}
+                </option>
+              ))}
+            </select>
+          </Field>
+
+          <Field label="Boot capacity, litres">
+            <input
+              name="trunk_liters"
+              type="number"
+              required
+              min={1}
+              max={5000}
+              step={10}
+              defaultValue={car?.trunk_liters ?? ""}
+              placeholder="340"
+              className={inputCls}
+            />
           </Field>
         </div>
 
@@ -223,6 +252,13 @@ export function CarForm({ car }: { car?: Car }) {
     </form>
   );
 }
+
+const DRIVETRAIN_LABELS: Record<(typeof DRIVETRAINS)[number], string> = {
+  FWD: "FWD — front-wheel",
+  RWD: "RWD — rear-wheel",
+  AWD: "AWD — all-wheel",
+  "4WD": "4WD — four-wheel",
+};
 
 const inputCls =
   "mt-1.5 w-full rounded-md border border-[#E1E4E8] px-3 py-2 text-sm text-[#1F2933] outline-none focus:border-[#1F2933]";

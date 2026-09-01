@@ -19,6 +19,13 @@ const ar: DeepPartial<Dictionary> = {
     Premium: "فاخرة",
   },
 
+  drivetrains: {
+    FWD: "أمامي",
+    RWD: "خلفي",
+    AWD: "رباعي دائم",
+    "4WD": "رباعي",
+  },
+
   hero: {
     titleLine1: "اكتشف ألماتي.",
     titleLine2: "سيارتك جاهزة.",
@@ -141,6 +148,9 @@ const ar: DeepPartial<Dictionary> = {
   },
 
   card: {
+    trunkUnit: "لتر",
+    trunk: "الصندوق",
+    drivetrain: "الدفع",
     seats: "مقاعد",
     perDay: "/ يوم",
     book: "احجز الآن",

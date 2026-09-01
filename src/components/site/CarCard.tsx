@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { Calendar, CarFront, Users } from "lucide-react";
+import { Calendar, CarFront, Luggage, Users } from "lucide-react";
 import { useDict } from "@/i18n/LanguageProvider";
 import { formatPrice } from "@/lib/format";
 import { transformFor, type Car } from "@/lib/types";
-import { TransmissionIcon } from "./icons";
+import { DrivetrainIcon, TransmissionIcon } from "./icons";
 
 export function CarCard({ car }: { car: Car }) {
   const dict = useDict();
@@ -46,13 +46,27 @@ export function CarCard({ car }: { car: Car }) {
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-2 px-4 py-3 text-[0.7rem] text-slate-body">
+      {/* Five specs wrap onto two rows at card width; the last two are absent
+          on cars added before those fields existed. */}
+      <div className="flex flex-wrap gap-x-3 gap-y-1.5 px-4 py-3 text-[0.7rem] text-slate-body">
         <Spec icon={<Calendar className="size-3.5" strokeWidth={1.6} />} label={String(car.year)} />
         <Spec icon={<TransmissionIcon className="size-3.5" />} label={car.transmission} />
         <Spec
           icon={<Users className="size-3.5" strokeWidth={1.6} />}
           label={`${car.seats} ${dict.card.seats}`}
         />
+        {car.drivetrain ? (
+          <Spec
+            icon={<DrivetrainIcon className="size-3.5" />}
+            label={dict.drivetrains[car.drivetrain]}
+          />
+        ) : null}
+        {car.trunk_liters ? (
+          <Spec
+            icon={<Luggage className="size-3.5" strokeWidth={1.6} />}
+            label={`${car.trunk_liters} ${dict.card.trunkUnit}`}
+          />
+        ) : null}
       </div>
 
       <div className="mt-auto flex items-center justify-between gap-3 border-t border-cream-200 px-4 py-3">
@@ -72,7 +86,7 @@ export function CarCard({ car }: { car: Car }) {
 
 function Spec({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <span className="flex min-w-0 items-center gap-1.5">
+    <span className="flex min-w-0 shrink-0 items-center gap-1.5">
       <span className="text-slate-body/70">{icon}</span>
       <span className="truncate">{label}</span>
     </span>

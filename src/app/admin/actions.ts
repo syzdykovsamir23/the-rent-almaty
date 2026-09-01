@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { CAR_TYPES, TRANSMISSIONS } from "@/lib/site";
+import { CAR_TYPES, DRIVETRAINS, TRANSMISSIONS } from "@/lib/site";
 
 export type ActionState = { error?: string };
 
@@ -13,6 +13,8 @@ function parseCar(formData: FormData) {
   const transmission = String(formData.get("transmission") ?? "");
   const year = Number(formData.get("year"));
   const seats = Number(formData.get("seats"));
+  const drivetrain = String(formData.get("drivetrain") ?? "");
+  const trunkLiters = Number(formData.get("trunk_liters"));
   const price = Number(formData.get("price_per_day"));
   const description = String(formData.get("description") ?? "").trim();
   const images = formData
@@ -30,6 +32,10 @@ function parseCar(formData: FormData) {
     return { error: "Year must be between 1990 and 2100." as const };
   if (!Number.isInteger(seats) || seats < 1 || seats > 20)
     return { error: "Seats must be between 1 and 20." as const };
+  if (!(DRIVETRAINS as readonly string[]).includes(drivetrain))
+    return { error: "Pick a drivetrain." as const };
+  if (!Number.isInteger(trunkLiters) || trunkLiters < 1 || trunkLiters > 5000)
+    return { error: "Boot capacity must be between 1 and 5000 litres." as const };
   if (!Number.isFinite(price) || price < 0) return { error: "Price must be a positive number." as const };
 
   return {
@@ -39,6 +45,8 @@ function parseCar(formData: FormData) {
       transmission,
       year,
       seats,
+      drivetrain,
+      trunk_liters: trunkLiters,
       price_per_day: Math.round(price),
       description: description || null,
       images,
@@ -78,25 +86,45 @@ function clamp(value: unknown, min: number, max: number, fallback: number): numb
   return Math.round(Math.min(max, Math.max(min, n)) * 100) / 100;
 }
 
-const MIGRATION_HINT =
-  "Saved, but the photo framing was not: run supabase/migration-image-settings.sql in the Supabase SQL Editor to add the image_settings column.";
+/** Columns added by later migrations, with the file that adds each one. */
+const OPTIONAL_COLUMNS: Record<string, string> = {
+  image_settings: "supabase/migration-image-settings.sql",
+  drivetrain: "supabase/migration-car-specs.sql",
+  trunk_liters: "supabase/migration-car-specs.sql",
+};
 
 /**
- * The image_settings column arrived after the first deploy. If the migration
- * has not been run yet, save everything else rather than failing the whole form.
+ * Some columns arrived after the first deploy. If a migration has not been run
+ * yet, drop just that column and save the rest rather than failing the whole
+ * form — then say exactly which file to run.
  */
-async function writeWithFramingFallback(
+async function writeToleratingMissingColumns(
   run: (values: Record<string, unknown>) => PromiseLike<{ error: { message: string } | null }>,
   values: Record<string, unknown>,
 ): Promise<ActionState | null> {
-  const { error } = await run(values);
-  if (!error) return null;
-  if (!error.message.includes("image_settings")) return { error: error.message };
+  const payload = { ...values };
+  const dropped: string[] = [];
 
-  const rest = { ...values };
-  delete rest.image_settings;
-  const retry = await run(rest);
-  return retry.error ? { error: retry.error.message } : { error: MIGRATION_HINT };
+  // One retry per missing column; the loop is bounded by how many there are.
+  for (let attempt = 0; attempt <= Object.keys(OPTIONAL_COLUMNS).length; attempt++) {
+    const { error } = await run(payload);
+    if (!error) break;
+
+    const missing = Object.keys(OPTIONAL_COLUMNS).find(
+      (col) => col in payload && error.message.includes(col),
+    );
+    if (!missing) return { error: error.message };
+
+    delete payload[missing];
+    dropped.push(missing);
+  }
+
+  if (dropped.length === 0) return null;
+
+  const files = [...new Set(dropped.map((c) => OPTIONAL_COLUMNS[c]))].join(" and ");
+  return {
+    error: `Saved, but ${dropped.join(" and ")} could not be stored. Run ${files} in the Supabase SQL Editor, then save again.`,
+  };
 }
 
 export async function createCar(_prev: ActionState, formData: FormData): Promise<ActionState> {
@@ -106,7 +134,7 @@ export async function createCar(_prev: ActionState, formData: FormData): Promise
   const parsed = parseCar(formData);
   if ("error" in parsed) return { error: parsed.error };
 
-  const failure = await writeWithFramingFallback(
+  const failure = await writeToleratingMissingColumns(
     (values) => supabase.from("cars").insert(values),
     parsed.values,
   );
@@ -128,7 +156,7 @@ export async function updateCar(_prev: ActionState, formData: FormData): Promise
   const parsed = parseCar(formData);
   if ("error" in parsed) return { error: parsed.error };
 
-  const failure = await writeWithFramingFallback(
+  const failure = await writeToleratingMissingColumns(
     (values) => supabase.from("cars").update(values).eq("id", id),
     parsed.values,
   );

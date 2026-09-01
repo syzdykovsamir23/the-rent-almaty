@@ -19,6 +19,13 @@ const th: DeepPartial<Dictionary> = {
     Premium: "พรีเมียม",
   },
 
+  drivetrains: {
+    FWD: "ขับหน้า",
+    RWD: "ขับหลัง",
+    AWD: "ขับสี่ล้อ",
+    "4WD": "ขับสี่ล้อ 4WD",
+  },
+
   hero: {
     titleLine1: "ออกสำรวจอัลมาตี",
     titleLine2: "รถของคุณพร้อมแล้ว",
@@ -140,6 +147,9 @@ const th: DeepPartial<Dictionary> = {
   },
 
   card: {
+    trunkUnit: "ลิตร",
+    trunk: "ท้ายรถ",
+    drivetrain: "ระบบขับ",
     seats: "ที่นั่ง",
     perDay: "/ วัน",
     book: "จองเลย",

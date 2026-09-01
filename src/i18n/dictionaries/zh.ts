@@ -19,6 +19,13 @@ const zh: DeepPartial<Dictionary> = {
     Premium: "豪华型",
   },
 
+  drivetrains: {
+    FWD: "前驱",
+    RWD: "后驱",
+    AWD: "全驱",
+    "4WD": "四驱",
+  },
+
   hero: {
     titleLine1: "畅游阿拉木图。",
     titleLine2: "爱车已备好。",
@@ -125,6 +132,9 @@ const zh: DeepPartial<Dictionary> = {
   },
 
   card: {
+    trunkUnit: "升",
+    trunk: "后备箱",
+    drivetrain: "驱动",
     seats: "座",
     perDay: "/ 天",
     book: "立即预订",

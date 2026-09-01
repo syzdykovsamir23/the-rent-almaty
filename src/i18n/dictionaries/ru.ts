@@ -19,6 +19,13 @@ const ru: DeepPartial<Dictionary> = {
     Premium: "Премиум",
   },
 
+  drivetrains: {
+    FWD: "Передний",
+    RWD: "Задний",
+    AWD: "Полный",
+    "4WD": "4WD",
+  },
+
   hero: {
     titleLine1: "Откройте Алматы.",
     titleLine2: "Машина уже ждёт.",
@@ -144,6 +151,9 @@ const ru: DeepPartial<Dictionary> = {
   },
 
   card: {
+    trunkUnit: "л",
+    trunk: "Багажник",
+    drivetrain: "Привод",
     seats: "мест",
     perDay: "/ сутки",
     book: "Забронировать",

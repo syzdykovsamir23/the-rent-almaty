@@ -19,6 +19,13 @@ const kk: DeepPartial<Dictionary> = {
     Premium: "Премиум",
   },
 
+  drivetrains: {
+    FWD: "Алдыңғы",
+    RWD: "Артқы",
+    AWD: "Толық",
+    "4WD": "4WD",
+  },
+
   hero: {
     titleLine1: "Алматыны ашыңыз.",
     titleLine2: "Көлігіңіз дайын.",
@@ -144,6 +151,9 @@ const kk: DeepPartial<Dictionary> = {
   },
 
   card: {
+    trunkUnit: "л",
+    trunk: "Багаж",
+    drivetrain: "Жетек",
     seats: "орын",
     perDay: "/ тәулік",
     book: "Брондау",

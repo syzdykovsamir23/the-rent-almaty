@@ -19,6 +19,13 @@ const ko: DeepPartial<Dictionary> = {
     Premium: "프리미엄",
   },
 
+  drivetrains: {
+    FWD: "전륜",
+    RWD: "후륜",
+    AWD: "상시사륜",
+    "4WD": "사륜",
+  },
+
   hero: {
     titleLine1: "알마티를 달리세요.",
     titleLine2: "차량은 준비됐습니다.",
@@ -140,6 +147,9 @@ const ko: DeepPartial<Dictionary> = {
   },
 
   card: {
+    trunkUnit: "L",
+    trunk: "트렁크",
+    drivetrain: "구동",
     seats: "인승",
     perDay: "/ 1일",
     book: "예약하기",

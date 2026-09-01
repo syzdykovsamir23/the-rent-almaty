@@ -30,3 +30,7 @@ export type CarType = (typeof CAR_TYPES)[number];
 
 export const TRANSMISSIONS = ["Automatic", "Manual"] as const;
 export type Transmission = (typeof TRANSMISSIONS)[number];
+
+/** Kept separate from the SUV/4WD body type — a 4WD body can be front-driven. */
+export const DRIVETRAINS = ["FWD", "RWD", "AWD", "4WD"] as const;
+export type Drivetrain = (typeof DRIVETRAINS)[number];
