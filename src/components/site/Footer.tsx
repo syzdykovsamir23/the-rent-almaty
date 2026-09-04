@@ -26,7 +26,7 @@ export function Footer() {
     "flex size-12 items-center justify-center rounded-full bg-white/10 text-white/85 transition-colors duration-200 hover:bg-gold-500 hover:text-ink-900";
 
   return (
-    <footer id="contact" className="bg-ink-900 text-white/75">
+    <footer id="contact" className="scroll-mt-[68px] bg-ink-900 text-white/75">
       <div className="grid lg:grid-cols-[1fr_minmax(0,420px)]">
         <div className="container-page py-14 lg:ps-[max(1.25rem,calc((100vw-var(--page-max))/2+1.25rem))] lg:pe-10">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">

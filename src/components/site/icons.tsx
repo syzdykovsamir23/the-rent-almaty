@@ -77,3 +77,41 @@ export function DrivetrainIcon({ className = "" }: { className?: string }) {
     </svg>
   );
 }
+
+/** 2GIS — the "2" of the 2ГИС wordmark, which is what the button reads as. */
+export function TwoGisIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <text
+        x="12"
+        y="17.4"
+        textAnchor="middle"
+        fill="currentColor"
+        fontSize="16"
+        fontWeight="800"
+        fontFamily="var(--font-display), system-ui, sans-serif"
+      >
+        2
+      </text>
+    </svg>
+  );
+}
+
+/** Yandex — the "Я" mark. */
+export function YandexIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <text
+        x="12"
+        y="17.2"
+        textAnchor="middle"
+        fill="currentColor"
+        fontSize="15"
+        fontWeight="800"
+        fontFamily="var(--font-display), system-ui, sans-serif"
+      >
+        Я
+      </text>
+    </svg>
+  );
+}

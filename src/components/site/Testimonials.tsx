@@ -9,9 +9,9 @@ export function Testimonials() {
   const dict = useDict();
 
   return (
-    <section id="reviews" className="bg-cream-50 pb-16 sm:pb-20">
+    <section id="reviews" className="scroll-mt-[68px] bg-cream-50 pb-16 sm:pb-20">
       <div className="container-page">
-        <div className="flex items-end justify-between gap-6">
+        <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <SectionHeading>{dict.reviews.heading}</SectionHeading>
           <p className="flex shrink-0 items-center gap-1.5 pb-1 text-[0.66rem] font-bold tracking-[0.12em] text-slate-body/70 uppercase">
             {dict.reviews.googleLabel}

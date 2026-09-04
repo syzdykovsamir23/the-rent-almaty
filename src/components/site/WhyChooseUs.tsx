@@ -10,7 +10,7 @@ export function WhyChooseUs() {
   const dict = useDict();
 
   return (
-    <section id="about" className="bg-ink-900 py-14 sm:py-16">
+    <section id="about" className="scroll-mt-[68px] bg-ink-900 py-14 sm:py-16">
       <div className="container-page">
         <h2 className="heading-display heading-rule text-[1.375rem] leading-none text-white sm:text-[1.625rem]">
           {dict.why.heading.replace("{brand}", site.name)}

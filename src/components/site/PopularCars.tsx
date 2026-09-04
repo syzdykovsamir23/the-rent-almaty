@@ -46,9 +46,9 @@ export function PopularCars({ cars }: { cars: Car[] }) {
     "flex size-9 cursor-pointer items-center justify-center rounded-full border border-cream-200 bg-white text-slate-heading shadow-[var(--shadow-card)] transition-all duration-200 hover:border-gold-500 hover:text-gold-600 disabled:cursor-default disabled:opacity-30 disabled:hover:border-cream-200 disabled:hover:text-slate-heading";
 
   return (
-    <section id="cars" className="bg-cream-50 py-14 sm:py-16">
+    <section id="cars" className="scroll-mt-[68px] bg-cream-50 py-14 sm:py-16">
       <div className="container-page">
-        <div className="flex items-end justify-between gap-6">
+        <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <SectionHeading>{dict.popular.heading}</SectionHeading>
           <Link
             href="/cars"
@@ -82,11 +82,11 @@ export function PopularCars({ cars }: { cars: Car[] }) {
                 ))}
               </div>
 
-              <div className="mt-5 flex justify-center gap-2 lg:hidden">
+              <div className="mt-5 flex justify-center gap-2 2xl:hidden">
                 <CarouselButtons />
               </div>
 
-              <div className="pointer-events-none absolute inset-y-0 -start-14 hidden items-center lg:flex">
+              <div className="pointer-events-none absolute inset-y-0 -start-14 hidden items-center 2xl:flex">
                 <span className="pointer-events-auto">
                   <button
                     type="button"
@@ -99,7 +99,7 @@ export function PopularCars({ cars }: { cars: Car[] }) {
                   </button>
                 </span>
               </div>
-              <div className="pointer-events-none absolute inset-y-0 -end-14 hidden items-center lg:flex">
+              <div className="pointer-events-none absolute inset-y-0 -end-14 hidden items-center 2xl:flex">
                 <span className="pointer-events-auto">
                   <button
                     type="button"

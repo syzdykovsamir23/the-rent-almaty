@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Camera, Mountain, Sun, Waves } from "lucide-react";
 import { useDict } from "@/i18n/LanguageProvider";
+import { KyrgyzFlag } from "./KyrgyzFlag";
 import { SectionHeading } from "./SectionHeading";
 
 const PLACE_IMAGES = [
@@ -18,9 +19,9 @@ export function ExploreKazakhstan() {
   const dict = useDict();
 
   return (
-    <section id="delivery" className="bg-cream-100 py-14 sm:py-16">
+    <section id="delivery" className="scroll-mt-[68px] bg-cream-100 py-14 sm:py-16">
       <div className="container-page">
-        <div className="flex items-end justify-between gap-6">
+        <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <SectionHeading subtitle={dict.explore.subtitle}>{dict.explore.heading}</SectionHeading>
           <a
             href="#conditions"
@@ -31,13 +32,13 @@ export function ExploreKazakhstan() {
           </a>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="no-scrollbar -mx-5 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4">
           {dict.explore.places.map((place, i) => {
             const Icon = PLACE_ICONS[i] ?? Mountain;
             return (
               <article
                 key={place.name}
-                className="card-surface group flex flex-col overflow-hidden hover:shadow-[var(--shadow-card-hover)]"
+                className="card-surface group flex w-[16rem] shrink-0 snap-start flex-col overflow-hidden hover:shadow-[var(--shadow-card-hover)] sm:w-auto sm:shrink"
               >
                 <div className="relative aspect-[3/2] overflow-hidden">
                   <Image
@@ -74,10 +75,18 @@ export function ExploreKazakhstan() {
         </div>
 
         <div className="mt-9 flex flex-col items-center">
-          <Link href="/cars" className="btn btn-gold px-8">
+          <Link href="/cars" className="btn btn-gold px-8 text-center">
             {dict.explore.cta}
           </Link>
-          <p className="mt-3 text-center text-[0.7rem] text-slate-body/70">{dict.explore.note}</p>
+
+          <p className="mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-2 text-center text-[0.95rem] leading-relaxed font-semibold text-slate-heading sm:text-[1.05rem]">
+            <KyrgyzFlag className="h-5 w-[1.875rem] shrink-0 rounded-[2px] shadow-sm" />
+            <span>{dict.explore.kyrgyzstan}</span>
+          </p>
+
+          <p className="mt-4 max-w-xl text-center text-[0.72rem] text-slate-body/70">
+            {dict.explore.note}
+          </p>
         </div>
       </div>
     </section>

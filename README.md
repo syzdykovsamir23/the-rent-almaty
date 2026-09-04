@@ -98,6 +98,27 @@ automatically.
 - Photo uploads accept JPEG/PNG/WebP/AVIF up to 8 MB, and the stored extension
   comes from the sniffed MIME type rather than the file name.
 
+## Checking the build
+
+```bash
+npm run audit:i18n        # every locale complete, nothing left in English
+npm run audit:responsive  # layout at 13 widths x 7 languages
+```
+
+`audit:i18n` compares each locale against the English reference and fails on a
+missing key, an unknown key, or a value still sitting at the English text.
+
+`audit:responsive`
+
+renders both pages at thirteen widths from 320px to 1920px in all seven
+languages — 182 combinations — and reports three things only: the page
+scrolling sideways, text cut off by its own box, and anything sticking out of
+the viewport once ancestor clipping is accounted for. A deliberately zoomed car
+photo overflows its crop box by design, so that is not counted.
+
+Needs the dev server running (`npm run dev`) and Playwright's chromium shell
+(`npx playwright install chromium --only-shell`).
+
 ## Car specs
 
 A car record carries name, body type, year, transmission, seats, drivetrain,

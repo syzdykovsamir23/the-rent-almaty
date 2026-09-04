@@ -62,6 +62,8 @@ const zh: DeepPartial<Dictionary> = {
     subtitle: "绝美风景正等着您",
     restrictions: "关于通行限制",
     cta: "为您的行程选车",
+    kyrgyzstan:
+      "您可以驾驶我们的车前往吉尔吉斯斯坦，所需证件我们全部为您备齐",
     note: "请注意：部分目的地需要越野性能较强的车辆。",
     distanceFrom: "距阿拉木图",
     places: [

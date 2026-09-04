@@ -28,12 +28,14 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-ink-900">
-      <div className="container-page flex h-[68px] items-center justify-between gap-6">
-        <Link href="/" className="shrink-0" onClick={() => setOpen(false)}>
-          <span className="block font-display text-[1.35rem] leading-none font-extrabold tracking-[0.02em] text-white uppercase">
+      <div className="container-page flex h-[68px] items-center justify-between gap-3 sm:gap-6">
+        <Link href="/" className="min-w-0" onClick={() => setOpen(false)}>
+          <span className="block font-display text-[1.15rem] leading-none font-extrabold tracking-[0.02em] text-white uppercase sm:text-[1.35rem]">
             {site.name}
           </span>
-          <span className="mt-1 block text-[0.5rem] leading-none font-semibold tracking-[0.22em] text-white/45 uppercase">
+          {/* Below 360px the longest translation cannot fit beside the brand,
+              and an ellipsis there reads as breakage rather than design. */}
+          <span className="mt-1 block text-[0.5rem] leading-none font-semibold tracking-[0.18em] text-white/45 uppercase max-[359px]:hidden sm:tracking-[0.22em]">
             {dict.nav.tagline}
           </span>
         </Link>
@@ -50,7 +52,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-1">
+        <div className="flex shrink-0 items-center gap-1">
           <LanguageSwitcher />
           <button
             type="button"

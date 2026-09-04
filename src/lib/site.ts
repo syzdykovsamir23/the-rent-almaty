@@ -17,6 +17,9 @@ export const site = {
     /** Scanned from the QR in the navbar/footer rather than opened as a URL. */
     wechatQr: "/images/wechat-qr.webp",
     googleReviews: "https://maps.app.goo.gl/JjYNtNW524FGHExZ8",
+    twoGis: "https://2gis.kz/almaty/geo/70000001060241979",
+    yandexMaps:
+      "https://yandex.ru/maps/org/the_rent/218708190873?si=c172yhcx4hz3pmyyudr5vzafm4",
     mapPlace: "https://maps.app.goo.gl/JjYNtNW524FGHExZ8",
     /** Keyless embed pinned to the exact coordinates of the office. */
     mapEmbed: "https://www.google.com/maps?q=43.2344874,76.9044229&z=16&output=embed",

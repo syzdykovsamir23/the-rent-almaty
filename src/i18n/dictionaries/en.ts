@@ -65,6 +65,8 @@ const en = {
     subtitle: "Amazing places are waiting for you",
     restrictions: "About restrictions",
     cta: "Find a car for your trip",
+    kyrgyzstan:
+      "You can take our cars to Kyrgyzstan — we prepare all the paperwork you need.",
     note: "Please note: some destinations require specially equipped vehicles.",
     distanceFrom: "from Almaty",
     places: [

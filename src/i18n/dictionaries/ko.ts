@@ -65,6 +65,8 @@ const ko: DeepPartial<Dictionary> = {
     subtitle: "놀라운 풍경이 기다리고 있습니다",
     restrictions: "통행 제한 안내",
     cta: "여행에 맞는 차량 찾기",
+    kyrgyzstan:
+      "저희 차량으로 키르기스스탄까지 여행하실 수 있습니다. 필요한 서류는 모두 준비해 드립니다",
     note: "참고: 일부 목적지는 오프로드에 적합한 차량이 필요합니다.",
     distanceFrom: "알마티에서",
     places: [
