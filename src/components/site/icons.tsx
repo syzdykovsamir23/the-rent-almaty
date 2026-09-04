@@ -78,40 +78,18 @@ export function DrivetrainIcon({ className = "" }: { className?: string }) {
   );
 }
 
-/** 2GIS — the "2" of the 2ГИС wordmark, which is what the button reads as. */
-export function TwoGisIcon({ className = "" }: { className?: string }) {
+/** Yandex Maps pin, taken from the product's own favicon. */
+export function YandexMapsIcon({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
-      <text
-        x="12"
-        y="17.4"
-        textAnchor="middle"
-        fill="currentColor"
-        fontSize="16"
-        fontWeight="800"
-        fontFamily="var(--font-display), system-ui, sans-serif"
-      >
-        2
-      </text>
-    </svg>
-  );
-}
-
-/** Yandex — the "Я" mark. */
-export function YandexIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
-      <text
-        x="12"
-        y="17.2"
-        textAnchor="middle"
-        fill="currentColor"
-        fontSize="15"
-        fontWeight="800"
-        fontFamily="var(--font-display), system-ui, sans-serif"
-      >
-        Я
-      </text>
+    <svg viewBox="0 0 16 16" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M8 1C4.6862 1 2 3.6862 2 7c0 1.6563.6711 3.156 1.7565 4.2417C4.8422 12.328 7.4 13.9 7.55 15.55c.02249.2474.2016.45.45.45s.42751-.2026.45-.45c.15-1.65 2.7078-3.222 3.7935-4.3083C13.3289 10.156 14 8.6563 14 7c0-3.3138-2.6862-6-6-6Z"
+        fill="#FF4433"
+      />
+      <path
+        d="M8 9.1a2.1 2.1 0 1 0 0-4.2 2.1 2.1 0 0 0 0 4.2Z"
+        fill="white"
+      />
     </svg>
   );
 }

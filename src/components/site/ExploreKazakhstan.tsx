@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Camera, Mountain, Sun, Waves } from "lucide-react";
 import { useDict } from "@/i18n/LanguageProvider";
-import { KyrgyzFlag } from "./KyrgyzFlag";
 import { SectionHeading } from "./SectionHeading";
 
 const PLACE_IMAGES = [
@@ -80,7 +79,7 @@ export function ExploreKazakhstan() {
           </Link>
 
           <p className="mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-2 text-center text-[0.95rem] leading-relaxed font-semibold text-slate-heading sm:text-[1.05rem]">
-            <KyrgyzFlag className="h-5 w-[1.875rem] shrink-0 rounded-[2px] shadow-sm" />
+            <span className="text-[1.35rem] leading-none">🇰🇬</span>
             <span>{dict.explore.kyrgyzstan}</span>
           </p>
 
