@@ -24,8 +24,6 @@ export const site = {
     /** Keyless embed pinned to the exact coordinates of the office. */
     mapEmbed: "https://www.google.com/maps?q=43.2344874,76.9044229&z=16&output=embed",
   },
-
-  googleRating: "4.9",
 } as const;
 
 export const CAR_TYPES = ["Economy", "Sedan", "SUV", "4WD", "Premium"] as const;

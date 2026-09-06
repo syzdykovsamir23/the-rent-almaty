@@ -2,6 +2,7 @@
 
 import { Star } from "lucide-react";
 import { useDict } from "@/i18n/LanguageProvider";
+import { REVIEWS } from "@/lib/reviews";
 import { site } from "@/lib/site";
 import { SectionHeading } from "./SectionHeading";
 
@@ -13,48 +14,59 @@ export function Testimonials() {
       <div className="container-page">
         <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <SectionHeading>{dict.reviews.heading}</SectionHeading>
-          <p className="flex shrink-0 items-center gap-1.5 pb-1 text-[0.66rem] font-bold tracking-[0.12em] text-slate-body/70 uppercase">
+          <a
+            href={site.links.googleReviews}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex shrink-0 items-center gap-1.5 pb-1 text-[0.66rem] font-bold tracking-[0.12em] text-slate-body/70 uppercase transition-colors hover:text-slate-heading"
+          >
             {dict.reviews.googleLabel}
-            <Star className="size-3.5 fill-gold-500 text-gold-500" />
-            <span className="num text-slate-heading">{site.googleRating}</span>
-          </p>
+            <GoogleG className="size-3.5" />
+          </a>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {dict.reviews.items.map((r) => (
-            <figure key={r.author} className="card-surface flex flex-col p-5">
+        {/* Columns rather than a grid: the reviews run from two lines to twelve,
+            and equal-height cards would leave most of them half empty. */}
+        <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
+          {REVIEWS.map((r) => (
+            <figure key={r.author} className="card-surface mb-4 break-inside-avoid p-5">
               <div className="flex gap-0.5">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className="size-3.5 fill-gold-500 text-gold-500" />
                 ))}
               </div>
-              <blockquote className="mt-3.5 grow text-[0.82rem] leading-relaxed text-slate-body">
-                &ldquo;{r.text}&rdquo;
+
+              {/* lang so each script gets the right font and line breaking. */}
+              <blockquote
+                lang={r.lang}
+                className="mt-3.5 text-[0.82rem] leading-relaxed text-slate-body"
+              >
+                {r.text}
               </blockquote>
+
               <figcaption className="mt-5 border-t border-cream-200 pt-3.5 text-[0.78rem] font-semibold text-slate-heading">
                 {r.author}
-                <span className="font-normal text-slate-body"> &ndash; {r.country}</span>
               </figcaption>
             </figure>
           ))}
-
-          <div className="flex flex-col items-center justify-center rounded-[10px] bg-ink-900 p-5 text-center">
-            <p className="font-display text-[0.78rem] leading-snug font-bold tracking-wider text-white uppercase">
-              {dict.reviews.seeAllTitle}
-            </p>
-            <GoogleG className="mt-4 size-8" />
-            <a
-              href={site.links.googleReviews}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-outline-light mt-4 px-4 py-2 text-[0.62rem]"
-            >
-              {dict.reviews.seeAllCta}
-            </a>
-          </div>
         </div>
 
-        <p className="mt-4 text-[0.68rem] text-slate-body/55">{dict.reviews.placeholderNote}</p>
+        <a
+          href={site.links.googleReviews}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 flex flex-col items-center justify-between gap-4 rounded-[10px] bg-ink-900 p-5 text-center transition-colors hover:bg-ink-800 sm:flex-row sm:text-start"
+        >
+          <span className="flex items-center gap-3">
+            <GoogleG className="size-7 shrink-0" />
+            <span className="font-display text-[0.85rem] leading-snug font-bold tracking-wider text-white uppercase">
+              {dict.reviews.seeAllTitle}
+            </span>
+          </span>
+          <span className="btn btn-outline-light shrink-0 px-4 py-2 text-[0.62rem]">
+            {dict.reviews.seeAllCta}
+          </span>
+        </a>
       </div>
     </section>
   );

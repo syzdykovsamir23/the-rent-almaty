@@ -110,12 +110,6 @@ const zh: DeepPartial<Dictionary> = {
     googleLabel: "谷歌评价",
     seeAllTitle: "在谷歌查看全部评价",
     seeAllCta: "查看评价",
-    placeholderNote: "此处为示例评价，真实评价稍后接入。",
-    items: [
-      { text: "服务非常好。车子干净舒适，而且准时送达。", author: "艾哈迈德", country: "阿联酋" },
-      { text: "租车手续非常简便，工作人员亲切又专业。", author: "由纪", country: "日本" },
-      { text: "在哈萨克斯坦最好的租车体验，强烈推荐！", author: "丹尼尔", country: "英国" },
-    ],
   },
 
   catalog: {

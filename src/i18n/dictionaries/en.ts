@@ -113,12 +113,6 @@ const en = {
     googleLabel: "Google reviews",
     seeAllTitle: "See all reviews on Google",
     seeAllCta: "View reviews",
-    placeholderNote: "Sample reviews — real ones are connected later.",
-    items: [
-      { text: "Excellent service. The car was clean, comfortable and delivered on time.", author: "Ahmed", country: "UAE" },
-      { text: "Very easy rental process. Staff is friendly and professional.", author: "Yuki", country: "Japan" },
-      { text: "The best car rental experience in Kazakhstan. Highly recommended!", author: "Daniel", country: "UK" },
-    ],
   },
 
   catalog: {

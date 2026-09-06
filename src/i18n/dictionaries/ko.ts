@@ -113,24 +113,6 @@ const ko: DeepPartial<Dictionary> = {
     googleLabel: "구글 리뷰",
     seeAllTitle: "구글에서 모든 후기 보기",
     seeAllCta: "후기 보기",
-    placeholderNote: "예시 후기입니다. 실제 후기는 이후에 연동됩니다.",
-    items: [
-      {
-        text: "훌륭한 서비스였습니다. 차는 깨끗하고 편안했고 제시간에 도착했어요.",
-        author: "아흐메드",
-        country: "아랍에미리트",
-      },
-      {
-        text: "대여 절차가 아주 간단했습니다. 직원분들도 친절하고 전문적이었어요.",
-        author: "유키",
-        country: "일본",
-      },
-      {
-        text: "카자흐스탄에서 경험한 최고의 렌터카였습니다. 강력히 추천합니다!",
-        author: "다니엘",
-        country: "영국",
-      },
-    ],
   },
 
   catalog: {
